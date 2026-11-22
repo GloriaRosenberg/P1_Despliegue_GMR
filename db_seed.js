@@ -6,6 +6,9 @@ const seed = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
 
+    console.log("Connected host:", mongoose.connection.host);
+    console.log("Connected database:", mongoose.connection.name);
+
     await Recinto.deleteMany({});
     await Evento.deleteMany({});
 
@@ -44,6 +47,9 @@ const seed = async () => {
         ],
       },
     ]);
+
+    console.log("Recintos:", await Recinto.countDocuments());
+    console.log("Eventos:", await Evento.countDocuments());
 
     console.log("Base de datos poblada con éxito");
   } catch (error) {
