@@ -4,7 +4,7 @@ import Evento from "./models/evento.js";
 
 const seed = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/ContactesMongo");
+    await mongoose.connect(process.env.MONGODB_URI);
 
     await Recinto.deleteMany({});
     await Evento.deleteMany({});
@@ -45,11 +45,12 @@ const seed = async () => {
       },
     ]);
 
-    console.log("Database seeded successfully");
+    console.log("Base de datos poblada con éxito");
   } catch (error) {
-    console.error("Error seeding database:", error);
+    console.error("Error poblando la base de datos:", error);
   } finally {
     await mongoose.connection.close();
+    console.log("Conexión cerrada.");
   }
 };
 
